@@ -1,0 +1,17 @@
+.graphSVG {
+	width: 699;
+	height: 176;
+	border-style: solid;
+	border-width: 1px;
+	border-color: black;
+}
+.graphPath {
+	width: 699;
+	height: 176;
+	stroke: green;
+	fill: none;
+}
+
+.lineScroller {
+	stroke: #8c8c8e;
+}
