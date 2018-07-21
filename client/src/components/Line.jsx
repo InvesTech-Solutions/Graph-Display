@@ -5,12 +5,12 @@ class Line extends React.Component {
 	constructor(props){
 		super(props);
 	}
-	render(){
+	render() {
 		if(this.props.show) {
 		return(
 		<g>
-		<circle r={5} fill={'green'} stroke={'white'} stroke-width={1} cx={this.props.closest.x} cy={this.props.closest.y}></circle>
-		<line className="lineScroller" x1={this.props.closest.x} x2={this.props.closest.x} y1={0} y2={300}></line>
+			<line className="lineScroller" x1={this.props.closest.x} x2={this.props.closest.x} y1={20} y2={270}></line>
+			<circle className='myCircle'r={4} stroke={'white'} strokeWidth={2} cx={this.props.closest.x} cy={this.props.closest.y}></circle>
 		</g>
 		);
 	} else {

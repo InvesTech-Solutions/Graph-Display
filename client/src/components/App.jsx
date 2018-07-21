@@ -8,7 +8,11 @@ class App extends Component {
   	super(props);
   	this.state = {
   		graphData: [],
-  		path: ''
+  		path: '',
+      line: false,
+      x: 0,
+      closest: {x: null, y: null},
+      date: 'April 6th, 2018'
   	}
   	this.createPath = this.createPath.bind(this);
   }
@@ -23,6 +27,24 @@ class App extends Component {
   	})
   }
 
+  onMouseMove(e) {
+      this.setState({x: e.screenX});
+      var closest = {x: null, y:null}
+      this.state.graphData.map((coords) => {
+        if (!closest.x && !closest.y) {
+          closest.x = coords.x;
+          closest.y = coords.y;
+        } else {
+          if (0<=e.screenX - closest.x<e.screenX-coords.x){
+            closest.x = coords.x;
+            closest.y = coords.y;
+          }
+        }
+      });
+      this.setState({closest: closest})
+      document.getElementById('date').style.left = this.state.closest.x-16 + 'px'
+    }
+
   componentDidMount(){
   	var tempArr =[]
   	var x = 0;
@@ -34,14 +56,18 @@ class App extends Component {
   	this.setState({
   		graphData: tempArr
   	})
+    setTimeout(this.createPath, 100)
   }
 
 
   render() {
     return (
       <div>
-      	<button onClick={this.createPath}>Ken's Lazy Graph Test</button>
-     	<Graph data = {this.state.graphData} path={this.state.path}/>
+        <div id='date'>{this.state.date}</div>
+        <svg onMouseMove = {this.onMouseMove.bind(this)} onMouseEnter = { () => this.setState({ line: true })} onMouseLeave= { () => this.setState({ line: false })} width={699} height={260} className='graphSVG'>
+     	      <Graph class='mainGraph' data = {this.state.graphData} path={this.state.path}/>
+            <Line closest={this.state.closest} show={this.state.line} />
+        </svg>
       </div>
     );
   }
