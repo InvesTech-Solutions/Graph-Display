@@ -28,22 +28,24 @@ class App extends Component {
   }
 
   onMouseMove(e) {
-      this.setState({x: e.screenX});
-      var closest = {x: null, y:null}
-      this.state.graphData.map((coords) => {
-        if (!closest.x && !closest.y) {
+    var closest = {x: null, y:null}
+    var captureMouse = this.setState({x: e.screenX}, () => {
+        this.setState({closest:closest}, () => {
+          document.getElementById('date').style.left = this.state.closest.x-16 + 'px'
+        })
+    })
+    this.state.graphData.map((coords) => {
+      if (!closest.x && !closest.y) {
+        closest.x = coords.x;
+        closest.y = coords.y;
+      } else {
+        if (0<=e.screenX - closest.x<e.screenX-coords.x){
           closest.x = coords.x;
           closest.y = coords.y;
-        } else {
-          if (0<=e.screenX - closest.x<e.screenX-coords.x){
-            closest.x = coords.x;
-            closest.y = coords.y;
-          }
         }
-      });
-      this.setState({closest: closest})
-      document.getElementById('date').style.left = this.state.closest.x-16 + 'px'
-    }
+      }
+    });
+  }
 
   componentDidMount(){
   	var tempArr =[]

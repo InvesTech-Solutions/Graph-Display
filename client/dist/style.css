@@ -22,10 +22,6 @@
 	z-index: 15;
 	fill: green;
 }
-.date {
-	position: absolute;
-	left: 250px;
-}
 div {
 	position: absolute;
 }
