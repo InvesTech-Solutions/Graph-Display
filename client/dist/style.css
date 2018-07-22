@@ -22,6 +22,9 @@
 	z-index: 15;
 	fill: green;
 }
+#date {
+	white-space: nowrap;
+}
 div {
 	position: absolute;
 }
