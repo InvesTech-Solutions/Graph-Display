@@ -10,8 +10,7 @@ class App extends Component {
   		graphData: [],
   		path: '',
       line: false,
-      x: 0,
-      closest: {x: null, y: null},
+      closest: {x: null, y: null, date: null},
       date: 'April 6th, 2018'
   	}
   	this.createPath = this.createPath.bind(this);
@@ -28,20 +27,22 @@ class App extends Component {
   }
 
   onMouseMove(e) {
-    var closest = {x: null, y:null}
-    var captureMouse = this.setState({x: e.screenX}, () => {
-        this.setState({closest:closest}, () => {
-          document.getElementById('date').style.left = this.state.closest.x-16 + 'px'
+    var closest = {x: null, y: null, date: null}
+    this.setState({x: e.screenX}, () => {
+      this.setState({closest:closest}, () => {
+          document.getElementById('date').style.left = this.state.closest.x - 49 + 'px'
         })
     })
     this.state.graphData.map((coords) => {
       if (!closest.x && !closest.y) {
         closest.x = coords.x;
         closest.y = coords.y;
+        closest.date = coords.date;
       } else {
         if (0<=e.screenX - closest.x<e.screenX-coords.x){
           closest.x = coords.x;
           closest.y = coords.y;
+          closest.date = coords.date;
         }
       }
     });
@@ -50,10 +51,12 @@ class App extends Component {
   componentDidMount(){
   	var tempArr =[]
   	var x = 0;
+    var d = 1;
   	for (var i = 0; i < 30; i++) {
   		var y = Math.random() * 200 + 40;
-  		tempArr.push({x:x, y:y});
-  		x = x+20;
+  		tempArr.push({x:x, y:y, date: `April ${d}th, 2016`});
+  		x = x + 20;
+      d++
   	}
   	this.setState({
   		graphData: tempArr
@@ -65,7 +68,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <div id='date'>{this.state.date}</div>
+        <div id='date'>{this.state.closest.date}</div>
         <svg onMouseMove = {this.onMouseMove.bind(this)} onMouseEnter = { () => this.setState({ line: true })} onMouseLeave= { () => this.setState({ line: false })} width={699} height={260} className='graphSVG'>
      	      <Graph class='mainGraph' data = {this.state.graphData} path={this.state.path}/>
             <Line closest={this.state.closest} show={this.state.line} />
