@@ -25,6 +25,9 @@ class App extends Component {
   		path: path
   	})
   }
+  test(){
+    return 'hello';
+  }
 
   onMouseMove(e) {
     var closest = {x: null, y: null, date: null}

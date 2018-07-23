@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Link changes the class when hovered 1`] = `
+<div>
+  <div
+    id="date"
+  />
+  <svg
+    className="graphSVG"
+    height={260}
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+    onMouseMove={[Function]}
+    width={699}
+  >
+    <g>
+      <path
+        className="graphPath"
+        d=""
+        height={270}
+        width={699}
+      />
+    </g>
+  </svg>
+</div>
+`;

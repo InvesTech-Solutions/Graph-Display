@@ -15,13 +15,12 @@
   },
   "scripts": {
     "start": "nodemon server/index.js",
-    "build": "npx webpack --watch"
+    "build": "npx webpack --watch",
+    "test": "jest"
   },
   "dependencies": {
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.5",
-    "babel-preset-env": "^1.7.0",
-    "babel-preset-react": "^6.24.1",
     "express": "^4.16.3",
     "jquery": "^3.3.1",
     "react": "^16.4.1",
@@ -29,8 +28,12 @@
     "react-dom": "^16.4.1"
   },
   "devDependencies": {
+    "babel": "^6.23.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
     "eslint-config-hackreactor": "git://github.com/reactorcore/eslint-config-hackreactor",
     "jest": "^23.4.1",
+    "react-test-renderer": "^16.4.1",
     "webpack": "^4.16.1",
     "webpack-cli": "^3.1.0"
   }
