@@ -1,24 +1,13 @@
 import React from 'react';
 import App from './App.jsx';
-import renderer from 'react-test-renderer';
+import { shallow } from 'enzyme';
 
+describe('App component', () => {
 
-test('Link changes the class when hovered', () => {
-  const component = renderer.create(
-    <App />,
-  );
-  let tree = component.toJSON();
-  expect(tree).toMatchSnapshot();
+	it( 'Should have an svg element', () => {
+		const wrapper = shallow(<App />)
+		const graphData = wrapper.state().graphData
+		expect(graphData.length).toEqual(30)
+	})
+})
 
-  // manually trigger the callback
-  tree.props.onMouseEnter();
-  // re-rendering
-  tree = component.toJSON();
-  expect(tree).toMatchSnapshot();
-
-  // manually trigger the callback
-  tree.props.createPath();
-  // re-rendering
-  tree = component.toJSON();
-  expect(tree).toMatchSnapshot();
-});
