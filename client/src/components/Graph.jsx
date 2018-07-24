@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import Line from './Line.jsx'
 
-class Graph extends React.Component {
+class Graph extends Component {
 	constructor(props){
 		super(props);
 		this.state = {
@@ -14,9 +12,9 @@ class Graph extends React.Component {
 	render(){
 		return(
 			<g>	
-		      	<path width={699} height={270} className='graphPath' d={this.props.path}></path>
-		    </g>	
-			);
+        <path width={699} height={270} className='graphPath' d={this.props.path}></path>
+			</g>	
+    );
 	}
 }
 export default Graph;
