@@ -10,7 +10,7 @@ class App extends Component {
       path: '',
       line: false,
       closest: {x: null, y: null, date: null},
-      date: 'April 6th, 2018'
+      date: 'APR 6, 2018'
     }
     this.createPath = this.createPath.bind(this);
   }
@@ -58,7 +58,7 @@ class App extends Component {
     //simple fake data generator -- will be replaced with a db retrieval in next pr
     for (let i = 0; i < 30; i++) {
       let y = Math.random() * 200 + 40;
-      tempArr.push({x:x, y:y, date: `April ${d}th, 2016`});
+      tempArr.push({x:x, y:y, date: `APR ${d}, 2016`});
       x = x + 20;
       d++;
     }
