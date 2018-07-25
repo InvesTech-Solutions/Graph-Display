@@ -1,0 +1,30 @@
+
+.graphSVG {
+	width: 699;
+	height: 176;
+	position: absolute;
+}
+.graphPath {
+	width: 699;
+	height: 176;
+	stroke: green;
+	fill: none;
+	position: absolute;
+}
+
+.lineScroller {
+	stroke: #8c8c8e;
+	position: relative;
+	z-index: -1;
+}
+.myCircle {
+	position: relative;
+	z-index: 15;
+	fill: green;
+}
+#date {
+	white-space: nowrap;
+}
+div {
+	position: absolute;
+}
