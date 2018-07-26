@@ -56,19 +56,17 @@ class App extends Component {
     let x = 0;
     let d = 1;
 
-    //simple fake data generator -- will be replaced with a db retrieval in next pr
-    for (let i = 0; i < 30; i++) {
-      let y = Math.random() * 200 + 40;
-      tempArr.push({x:x, y:y, date: `APR ${d}, 2016`});
-      x = x + 20;
-      d++;
-    }
-    this.setState({
-      graphData: tempArr
-    })
-    setTimeout(this.createPath, 100)
+    setTimeout(this.createPath, 200)
     $.get('http://127.0.0.1:3000/prices/', (results) => {
       console.log(results);
+      results.forEach((datapoint) => {
+        tempArr.push({x:x, y:datapoint.price, date:datapoint['DATE_FORMAT(price_date, "%b %e %Y")']})
+        x += 20
+      })
+      console.log(tempArr)
+      this.setState({graphData: tempArr}, () => {
+        this.createPath();
+      })
     })
 
   }
