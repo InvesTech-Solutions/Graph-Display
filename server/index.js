@@ -18,7 +18,6 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.get('/prices/', (req, res) => {
 	 console.log(req.params)
 	 db.getMonthPrices((err, results) => {
-	 	console.log(results);
 	 	res.status(200).send(results)
 	 })
 })

@@ -31,7 +31,7 @@ class App extends Component {
 
   onMouseMove(e) {
     const closest = {x: null, y: null, date: null}
-    this.setState({x: e.screenX}, () => {
+    this.setState({x: e.clientX}, () => {
       this.setState({closest:closest}, () => {
         document.getElementById('date').style.left = this.state.closest.x - document.getElementById('date').offsetWidth/2 + 'px'
       })
@@ -42,7 +42,7 @@ class App extends Component {
         closest.y = coords.y;
         closest.date = coords.date;
       } else {
-        if (0<=e.screenX - closest.x<e.screenX-coords.x){
+        if (0<=e.clientX - closest.x<e.clientX-coords.x){
           closest.x = coords.x;
           closest.y = coords.y;
           closest.date = coords.date;
@@ -54,16 +54,11 @@ class App extends Component {
   componentDidMount(){
     const tempArr =[]
     let x = 0;
-    let d = 1;
-
-    setTimeout(this.createPath, 200)
     $.get('http://127.0.0.1:3000/prices/', (results) => {
-      console.log(results);
       results.forEach((datapoint) => {
         tempArr.push({x:x, y:datapoint.price, date:datapoint['DATE_FORMAT(price_date, "%b %e %Y")']})
         x += 20
       })
-      console.log(tempArr)
       this.setState({graphData: tempArr}, () => {
         this.createPath();
       })
