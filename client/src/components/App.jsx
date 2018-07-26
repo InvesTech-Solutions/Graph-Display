@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Graph from './Graph.jsx'
 import Line from './Line.jsx'
+import $ from 'jquery'
 
 class App extends Component {
   constructor(props) {
@@ -62,11 +63,14 @@ class App extends Component {
       x = x + 20;
       d++;
     }
-
     this.setState({
       graphData: tempArr
     })
     setTimeout(this.createPath, 100)
+    $.get('http://127.0.0.1:3000/prices/', (results) => {
+      console.log(results);
+    })
+
   }
 
 
