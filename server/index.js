@@ -13,9 +13,7 @@ app.use((req, res, next) => {
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
-
-
-app.get('/prices/', (req, res) => {
+app.get('/prices/:company/:timeframe', (req, res) => {
 	 console.log(req.params)
 	 db.getMonthPrices((err, results) => {
 	 	res.status(200).send(results)
@@ -25,7 +23,7 @@ app.get('/prices/', (req, res) => {
 app.use(express.static(path.join(__dirname, '../client/dist')));
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, ()=> {
+app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`);
 });
 

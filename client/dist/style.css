@@ -1,8 +1,21 @@
-
+.priceDisplay {
+	display: flex;
+	flex-direction: column;
+f
+}
+.differences {
+	display: flex;
+	flex-direction: row;
+}
+.mainGraphContainer {
+	display: flex;
+	flex-direction: column;
+}
 .graphSVG {
 	width: 699;
 	height: 176;
 	position: absolute;
+	margin-top: 200px;
 }
 .graphPath {
 	width: 699;
@@ -14,17 +27,14 @@
 
 .lineScroller {
 	stroke: #8c8c8e;
-	position: relative;
-	z-index: -1;
+	position: absolute;
 }
 .myCircle {
-	position: relative;
-	z-index: 15;
+	position: absolute;
 	fill: green;
 }
 #date {
 	white-space: nowrap;
-}
-div {
 	position: absolute;
+	margin-top: 200px;
 }

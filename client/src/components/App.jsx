@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import Graph from './Graph.jsx'
-import Line from './Line.jsx'
-import $ from 'jquery'
+import Graph from './Graph.jsx';
+import Line from './Line.jsx';
+import $ from 'jquery';
+import Price from './Price.jsx';
 
 class App extends Component {
   constructor(props) {
@@ -33,16 +34,16 @@ class App extends Component {
     const closest = {x: null, y: null, date: null}
     this.setState({x: e.clientX}, () => {
       this.setState({closest:closest}, () => {
-        document.getElementById('date').style.left = this.state.closest.x - document.getElementById('date').offsetWidth/2 + 'px'
+        document.getElementById('date').style.left = this.state.closest.x - document.getElementById('date').offsetWidth / 2 + 'px';
       })
     })
-    this.state.graphData.map((coords) => {
+    this.state.graphData.map(coords => {
       if (!closest.x && !closest.y) {
         closest.x = coords.x;
         closest.y = coords.y;
         closest.date = coords.date;
       } else {
-        if (0<=e.clientX - closest.x<e.clientX-coords.x){
+        if (0 <= e.clientX - closest.x < e.clientX - coords.x){
           closest.x = coords.x;
           closest.y = coords.y;
           closest.date = coords.date;
@@ -54,7 +55,7 @@ class App extends Component {
   componentDidMount(){
     const tempArr =[]
     let x = 0;
-    $.get('http://127.0.0.1:3000/prices/', (results) => {
+    $.get('http://127.0.0.1:3000/prices/hello/monthly', (results) => {
       results.forEach((datapoint) => {
         tempArr.push({x:x, y:datapoint.price, date:datapoint['DATE_FORMAT(price_date, "%b %e %Y")']})
         x += 20
@@ -66,10 +67,10 @@ class App extends Component {
 
   }
 
-
   render() {
     return (
-      <div>
+      <div className = 'mainGraphContainer'>
+        <Price />
         <div id='date'>{this.state.closest.date}</div>
         <svg onMouseMove = {this.onMouseMove.bind(this)} onMouseEnter = { () => this.setState({ line: true })} onMouseLeave= { () => this.setState({ line: false })} width={699} height={260} className='graphSVG'>
             <Graph class='mainGraph' data = {this.state.graphData} path={this.state.path}/>
