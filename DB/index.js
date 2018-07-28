@@ -13,6 +13,17 @@ const getMonthPrices = (callback) => {
 	})
 }
 
+const getCompanyData = (company, callback) => {
+	connection.query(`SELECT * FROM companies WHERE companies.name='${company}'`, (err, results) => {
+		if(err){
+			callback(err, null);
+		} else {
+			callback(null, results);
+		}
+	})
+}
+
 module.exports = {
-	getMonthPrices
+	getMonthPrices,
+	getCompanyData
 };

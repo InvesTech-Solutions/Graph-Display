@@ -9,7 +9,7 @@ export default class Price extends Component {
 			<div className='priceDisplay'>
 				<h3>Facebook</h3>
 				<h3>
-					<span>$</span>
+					<span>${this.props.currentPrice}</span>
 				</h3>
 				<div className ='differences'>
 					<h5 className = 'dollarsDiff'>-$10.43</h5>
