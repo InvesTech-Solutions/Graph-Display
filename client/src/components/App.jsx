@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import Graph from './Graph.jsx';
 import Line from './Line.jsx';
-import $ from 'jquery';
 import Price from './Price.jsx';
+import $ from 'jquery';
+
 
 class App extends Component {
+  
   constructor(props) {
     super(props);
     this.state = {
@@ -15,11 +17,25 @@ class App extends Component {
       date: 'APR 6, 2018',
       currentCompany:null,
       currentPrice: null,
-      currentClosing: null,
+      closing: null,
     }
     this.createPath = this.createPath.bind(this);
     this.getGraphData = this.getGraphData.bind(this);
     this.getCompanyData = this.getCompanyData.bind(this);
+    this.formatPrice = this.formatPrice.bind(this);
+  }
+
+  formatPrice(int){
+    var str = int.toString();
+    let index = str.indexOf('.');
+    if(index !== str.length - 3){
+        if (index === -1) {
+          return `$${str}.00`;
+        } else {
+          return `$${str}0`;
+        }
+    }
+    return `$${str}`;
   }
   
   createPath() {
@@ -55,6 +71,7 @@ class App extends Component {
     const tempArr = []
     let x = 0;
     $.get(`http://127.0.0.1:3000/prices/${this.state.currentCompany}/monthly`, (results) => {
+      this.setState({closing: results[0].price})
       results.forEach((datapoint) => {
         tempArr.push({x:x, price:datapoint.price, y:datapoint.price, date:datapoint['DATE_FORMAT(price_date, "%b %e %Y")']})
         x += 20
