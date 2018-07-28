@@ -82,7 +82,7 @@ class App extends Component {
     return (
       <div className = 'mainGraphContainer'>
         <Price currentPrice={this.state.line ? this.state.closest.price : this.state.currentPrice} closingPrice={this.state.currentClosing}/>
-        <div id='date'>{this.state.closest.date}</div>
+        <div id='date'>{this.state.line ? this.state.closest.date : null}</div>
         <svg onMouseMove = {this.onMouseMove.bind(this)} onMouseEnter = { () => this.setState({ line: true })} onMouseLeave= { () => this.setState({ line: false })} width={699} height={260} className='graphSVG'>
             <Graph class='mainGraph' data = {this.state.graphData} path={this.state.path}/>
             <Line closest={this.state.closest} show={this.state.line} />
