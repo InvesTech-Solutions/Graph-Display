@@ -42,18 +42,11 @@ class App extends Component {
         })
     })
     this.state.graphData.map(coords => {
-      if (!closest.x && !closest.y) {
+      if (!closest.x || 0 <= e.clientX - closest.x < e.clientX - coords.x) {
         closest.x = coords.x;
         closest.y = coords.y;
         closest.price = coords.price;
         closest.date = coords.date;
-      } else {
-        if (0 <= e.clientX - closest.x < e.clientX - coords.x) {
-          closest.x = coords.x;
-          closest.y = coords.y;
-          closest.price = coords.price
-          closest.date = coords.date;
-        }
       }
     });
   }
