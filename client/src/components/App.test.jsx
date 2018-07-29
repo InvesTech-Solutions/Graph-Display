@@ -1,5 +1,6 @@
 import React from 'react';
 import App from './App.jsx';
+import Price from './Price.jsx';
 import { shallow } from 'enzyme';
 
 describe('App component', () => {
@@ -14,6 +15,19 @@ describe('App component', () => {
 		const wrapper = shallow(<App />)
 		const formatted = wrapper.instance().formatPrice(432)
 		expect(formatted).toEqual('432.00')
+	})
+
+	it('Should have a method that formats datapoints within the graph height', () => {
+		const wrapper = shallow(<App />)
+		const formatted = wrapper.instance().formatDataPoint(120, 70, 100)
+		expect(formatted).toEqual(156)
+	})
+	it('Should be able to create a graph path, given datapoints', () => {
+		const wrapper = shallow(<App />).instance()
+		wrapper.setState({graphData: [{x:0, y:1}, {x:1, y:2}]}, wrapper.createPath);
+		setTimeout(() => {
+			expect(wrapper.state().path).toEqual('M0,1L1,2')
+		}, 100)
 	})
 })
 
