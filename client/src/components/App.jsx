@@ -14,7 +14,7 @@ class App extends Component {
       path: '',
       line: false, //used to determine whether to display the line, circle, and date
       closest: {x: null, price: '1.00', y: null, date: null}, // used to determine where to display the line, circle and date
-      date: null,
+      date: null, // the current date being displayed
       currentCompany:null, // the company whose stock is being displayed, object with name, rating, user number, and last closing price
       currentPrice: '1.00', // the current price of the stock
       closing: '1.00', // oldest price in current timeframe
@@ -78,6 +78,7 @@ class App extends Component {
   }
 
   // fetches company price records and formats them into graph coordinates with prices attached, while keeping track of max and min vals
+  // in order to properly format the graph
   getGraphData(timeframe) {
     const tempArr = []
     let x = 0;

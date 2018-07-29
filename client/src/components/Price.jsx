@@ -5,7 +5,12 @@ export default class Price extends Component {
 		super(props);
 		this.subtractPrices = this.subtractPrices.bind(this)
 	}
+
+	//subtracts two dollar-cents strings and returns a result with a relevant plus or minus and dollar sign
 	subtractPrices(firstPrice, secondPrice) {
+		if (firstPrice === secondPrice) {
+			return '+$0.00';
+		}
 		let dollarsFirst = parseFloat(firstPrice.slice(0, firstPrice.length - 3));
 		let dollarsSecond = parseFloat(secondPrice.slice(0, secondPrice.length - 3));
 		let totalCentsFirst = dollarsFirst * 100 + parseFloat(firstPrice.slice(firstPrice.length-2, firstPrice.length));
