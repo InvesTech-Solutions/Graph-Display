@@ -34,7 +34,7 @@ class App extends Component {
 
   //formats integers into price strings
   formatPrice(int){
-    var str = int.toString();
+    let str = int.toString();
     let index = str.indexOf('.');
     if(index !== str.length - 3) {
         if (index === -1) {

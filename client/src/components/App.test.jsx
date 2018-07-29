@@ -1,6 +1,7 @@
 import React from 'react';
 import App from './App.jsx';
 import Price from './Price.jsx';
+import Line from './Line.jsx';
 import { shallow } from 'enzyme';
 
 describe('App component', () => {
@@ -33,9 +34,10 @@ describe('App component', () => {
 })
 
 describe('Price component', () => {
+
 	it('Should have a method that can subtract two price strings and use a props method to format them as a price difference', () => {
 		const wrapper = shallow(<Price formatPrice={(int)=> {
-		    var str = int.toString();
+		    let str = int.toString();
 		    let index = str.indexOf('.');
 		    if(index !== str.length - 3) {
 		        if (index === -1) {
@@ -48,5 +50,13 @@ describe('Price component', () => {
   		}} />)
 		const subtracted = wrapper.instance().subtractPrices('12.32', '1.21')
 		expect(subtracted).toEqual('+$11.11')
+	})
+})
+
+describe('Line component', () => {
+
+	it('Should render null if passed a falsy show prop', () => {
+		const wrapper = shallow(<Line show={false}/>)
+		expect(wrapper.instance().render()).toEqual(null);
 	})
 })
