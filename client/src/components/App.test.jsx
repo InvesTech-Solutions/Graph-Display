@@ -32,10 +32,20 @@ describe('App component', () => {
 	})
 })
 
-describe('Price component', () -> {
-
-	it('Should have a method that can subtract two price strings and format them as a price difference', () => {
-		const wrapper = shallow(<Price />)
+describe('Price component', () => {
+	it('Should have a method that can subtract two price strings and use a props method to format them as a price difference', () => {
+		const wrapper = shallow(<Price formatPrice={(int)=> {
+		    var str = int.toString();
+		    let index = str.indexOf('.');
+		    if(index !== str.length - 3) {
+		        if (index === -1) {
+		          return `${str}.00`;
+		        } else {
+		          return `${str}0`;
+		        }
+		    }
+		    return `${str}`;
+  		}} />)
 		const subtracted = wrapper.instance().subtractPrices('12.32', '1.21')
 		expect(subtracted).toEqual('+$11.11')
 	})

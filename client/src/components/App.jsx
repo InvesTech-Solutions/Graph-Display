@@ -10,9 +10,9 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      graphData: [],
-      path: '',
-      line: false, //used to determine whether to display the line, circle, and date
+      graphData: [], // holds the various x/y price coordinates for the graph
+      path: '', // is a formatted path created from graphData that can be inserted into the svg path element
+      line: false, // used to determine whether to display the line, circle, and date
       closest: {x: null, price: '1.00', y: null, date: null}, // used to determine where to display the line, circle and date
       date: null, // the current date being displayed
       currentCompany:null, // the company whose stock is being displayed, object with name, rating, user number, and last closing price
