@@ -22,6 +22,7 @@ describe('App component', () => {
 		const formatted = wrapper.instance().formatDataPoint(120, 70, 100)
 		expect(formatted).toEqual(156)
 	})
+
 	it('Should be able to create a graph path, given datapoints', () => {
 		const wrapper = shallow(<App />).instance()
 		wrapper.setState({graphData: [{x:0, y:1}, {x:1, y:2}]}, wrapper.createPath);
@@ -31,3 +32,11 @@ describe('App component', () => {
 	})
 })
 
+describe('Price component', () -> {
+
+	it('Should have a method that can subtract two price strings and format them as a price difference', () => {
+		const wrapper = shallow(<Price />)
+		const subtracted = wrapper.instance().subtractPrices('12.32', '1.21')
+		expect(subtracted).toEqual('+$11.11')
+	})
+})
