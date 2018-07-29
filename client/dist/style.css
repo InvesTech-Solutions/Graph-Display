@@ -1,3 +1,8 @@
+body {
+font-family: din-condensed, sans-serif;
+font-style: normal;
+font-weight: 400;
+}
 .priceDisplay {
 	display: flex;
 	flex-direction: column;
@@ -21,6 +26,7 @@
 	height: 176;
 	position: absolute;
 	margin-top: 200px;
+	overflow: visible;
 }
 .graphPath {
 	width: 699;
@@ -41,5 +47,5 @@
 #date {
 	white-space: nowrap;
 	position: absolute;
-	margin-top: 200px;
+	margin-top: 180px;
 }

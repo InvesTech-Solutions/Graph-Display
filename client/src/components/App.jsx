@@ -25,11 +25,18 @@ class App extends Component {
     this.formatPrice = this.formatPrice.bind(this);
   }
 
+  //conversion factor that makes data occupy whole graph
+  formatDataPoint(max, min, val) {
+    let maxDiff = max - min;
+    let currentDiff = val - min;
+    return currentDiff/maxDiff * 260;
+  }
+
   //formats integers into price strings
   formatPrice(int){
     var str = int.toString();
     let index = str.indexOf('.');
-    if(index !== str.length - 3){
+    if(index !== str.length - 3) {
         if (index === -1) {
           return `${str}.00`;
         } else {
@@ -70,18 +77,29 @@ class App extends Component {
     });
   }
 
-  // fetches company price records and formats them into graph coordinates with prices attached
+  // fetches company price records and formats them into graph coordinates with prices attached, while keeping track of max and min vals
   getGraphData(timeframe) {
     const tempArr = []
     let x = 0;
+    let min = null;
+    let max = null;
     $.get(`http://127.0.0.1:3000/prices/${this.state.currentCompany}/monthly`, (results) => {
       this.setState({closing: this.formatPrice(results[0].price)})
       results.forEach((datapoint) => {
-        tempArr.push({x:x, price: this.formatPrice(datapoint.price), y:datapoint.price, date:datapoint['DATE_FORMAT(price_date, "%b %e %Y")']})
-        x += 20
+        if(!max || datapoint.price > max) {
+          max = datapoint.price;
+        }
+        if(!min || datapoint.price < min) {
+          min = datapoint.price;
+        }
+      })
+      results.forEach((datapoint) => {
+        tempArr.push({x:x, price: this.formatPrice(datapoint.price), y:this.formatDataPoint(max, min, datapoint.price), date:datapoint['DATE_FORMAT(price_date, "%b %e %Y")']})
+        x += 699/results.length
       })
       this.setState({graphData: tempArr}, () => {
         this.createPath();
+        console.log(this.state.max, this.state.min)
       });
     });
   }
