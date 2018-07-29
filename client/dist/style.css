@@ -49,3 +49,9 @@ font-weight: 400;
 	position: absolute;
 	margin-top: 180px;
 }
+#currentPrice {
+	font-size: 30px;
+	font-family: din-condensed, sans-serif;
+	font-style: normal;
+	font-weight: 350;
+}

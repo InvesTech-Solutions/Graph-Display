@@ -99,7 +99,6 @@ class App extends Component {
       })
       this.setState({graphData: tempArr}, () => {
         this.createPath();
-        console.log(this.state.max, this.state.min)
       });
     });
   }
@@ -122,7 +121,7 @@ class App extends Component {
   render() {
     return (
       <div className = 'mainGraphContainer'>
-        <Price formatPrice = {this.formatPrice} currentPrice = {this.state.line ? this.state.closest.price : this.state.currentPrice} closingPrice = {this.state.closing}/>
+        <Price formatPrice = {this.formatPrice} currentPrice = {this.state.line ? this.state.closest.price : this.state.currentPrice} closingPrice = {this.state.closing} name={this.state.currentCompany ? this.state.currentCompany.name : null}/>
         <div id ='date'>{this.state.line ? this.state.closest.date : null}</div>
         <svg onMouseMove = {this.onMouseMove.bind(this)} onMouseEnter = {() => this.setState({ line: true })} onMouseLeave = { () => this.setState({ line: false })} width = {699} height = {260} className = 'graphSVG'>
             <g transform="translate(0,260)">

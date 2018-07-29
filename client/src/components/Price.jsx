@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 
 export default class Price extends Component {
-	constructor(props){
+	constructor(props) {
 		super(props);
-		this.subtractPrices=this.subtractPrices.bind(this)
+		this.subtractPrices = this.subtractPrices.bind(this)
 	}
 	subtractPrices(firstPrice, secondPrice) {
 		let dollarsFirst = parseFloat(firstPrice.slice(0, firstPrice.length - 3));
@@ -19,12 +19,10 @@ export default class Price extends Component {
 	}
 	render() {
 		return (
-			<div className='priceDisplay'>
-				<h3>Facebook</h3>
-				<h3>
-					<span>${this.props.currentPrice}</span>
-				</h3>
-				<div className ='differences'>
+			<div className = 'priceDisplay'>
+				<h3>{this.props.name}</h3>
+					<span id='currentPrice'>${this.props.currentPrice}</span>
+				<div className = 'differences'>
 					<h5 className = 'dollarsDiff'>{this.subtractPrices(this.props.currentPrice, this.props.closingPrice)}</h5>
 					<h5 className = 'percentDiff'>
 						({parseInt(this.props.currentPrice) > parseInt(this.props.closingPrice) ? '+' : null}
