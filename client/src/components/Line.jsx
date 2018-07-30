@@ -6,11 +6,12 @@ class Line extends Component {
 		super(props);
 	}
 	render() {
+		//checks to see if the mouse is currently inside the svg element
 		if(this.props.show) {
 			return(
 				<g>
-					<line className="lineScroller" x1={this.props.closest.x} x2={this.props.closest.x} y1={20} y2={270}></line>
-					<circle className='myCircle'r={4} stroke={'white'} strokeWidth={2} cx={this.props.closest.x} cy={this.props.closest.y}></circle>
+					<line className="lineScroller" x1={this.props.closest.x} x2={this.props.closest.x} y1={5} y2={260}></line>
+					<circle className='myCircle'r={5} stroke={'white'} strokeWidth={2} cx={this.props.closest.x} cy={this.props.closest.y}></circle>
 				</g>
 			);
 		} else {
