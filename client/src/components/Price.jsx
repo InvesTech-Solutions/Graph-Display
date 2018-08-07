@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import styles from '../../dist/style.css';
 
 export default class Price extends Component {
 	constructor(props) {
@@ -7,6 +8,7 @@ export default class Price extends Component {
 	}
 
 	//subtracts two dollar-cents strings and returns a result with a relevant plus or minus and dollar sign
+		// "11.00" "20.00"
 	subtractPrices(firstPrice, secondPrice) {
 		if (firstPrice === secondPrice) {
 			return '+$0.00';
@@ -24,12 +26,12 @@ export default class Price extends Component {
 	}
 	render() {
 		return (
-			<div className = 'priceDisplay'>
+			<div className = {styles.priceDisplay}>
 				<h3>{this.props.name}</h3>
-					<span id='currentPrice'>${this.props.currentPrice}</span>
-				<div className = 'differences'>
-					<h5 className = 'dollarsDiff'>{this.subtractPrices(this.props.currentPrice, this.props.closingPrice)}</h5>
-					<h5 className = 'percentDiff'>
+					<span id={styles.currentPrice}>${this.props.currentPrice}</span>
+				<div className = {styles.differences}>
+					<h5 className = {styles.dollarsDiff}>{this.subtractPrices(this.props.currentPrice, this.props.closingPrice)}</h5>
+					<h5 className = {styles.percentDiff}>
 						({parseInt(this.props.currentPrice) > parseInt(this.props.closingPrice) ? '+' : null}
 						{((this.props.currentPrice/this.props.closingPrice - 1)*100).toFixed(2)}%)
 					</h5>

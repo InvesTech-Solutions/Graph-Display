@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import styles from '../../dist/style.css';
 
 class Graph extends Component {
 	constructor(props){
@@ -7,7 +8,7 @@ class Graph extends Component {
 	render(){
 		return(
 			<g>	
-        		<path width={699} height={270} className='graphPath' d={this.props.path}></path>
+        		<path width={699} height={270} className={styles.graphPath} d={this.props.path}></path>
 			</g>	
     );
 	}

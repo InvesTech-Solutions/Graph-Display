@@ -25,13 +25,12 @@ font-weight: 400;
 	width: 699;
 	height: 176;
 	position: absolute;
-	margin-top: 200px;
 	overflow: visible;
 }
 .graphPath {
 	width: 699;
 	height: 176;
-	stroke: green;
+	stroke: #21ce99;
 	fill: none;
 	position: absolute;
 }
@@ -42,12 +41,12 @@ font-weight: 400;
 }
 .myCircle {
 	position: absolute;
-	fill: green;
+	fill: #21ce99;
 }
 #date {
 	white-space: nowrap;
 	position: absolute;
-	margin-top: 180px;
+	transform: translate(0px, -20px);
 }
 #currentPrice {
 	font-size: 30px;

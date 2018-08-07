@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import Graph from './Graph.jsx';
 import Line from './Line.jsx';
 import Price from './Price.jsx';
+import styles from '../../dist/style.css';
 import $ from 'jquery';
 
 
-class App extends Component {
+class MainGraph extends Component {
   
   constructor(props) {
     super(props);
@@ -15,7 +16,7 @@ class App extends Component {
       line: false, // used to determine whether to display the line, circle, and date
       closest: {x: null, price: '1.00', y: null, date: null}, // used to determine where to display the line, circle and date
       date: null, // the current date being displayed
-      currentCompany:null, // the company whose stock is being displayed, object with name, rating, user number, and last closing price
+      currentCompany:'animi', // the company whose stock is being displayed, object with name, rating, user number, and last closing price
       currentPrice: '1.00', // the current price of the stock
       closing: '1.00', // oldest price in current timeframe
     }
@@ -33,10 +34,10 @@ class App extends Component {
   }
 
   //formats integers into price strings
-  formatPrice(int){
+  formatPrice(int) {
     let str = int.toString();
     let index = str.indexOf('.');
-    if(index !== str.length - 3) {
+    if(index !== str.length - 3 || index===-1) {
         if (index === -1) {
           return `${str}.00`;
         } else {
@@ -62,8 +63,8 @@ class App extends Component {
     const closest = {x: null, price: null, y: null, date: null}
     this.setState({x: e.clientX}, () => {
         this.setState({closest:closest}, () => {
-          if(this.state.closest.x - document.getElementById('date').offsetWidth / 2 >= 0){
-            document.getElementById('date').style.left = this.state.closest.x - document.getElementById('date').offsetWidth / 2 + 'px';
+          if(this.state.closest.x - document.getElementById(styles.date).offsetWidth / 2 >= 0){
+            document.getElementById(styles.date).style.left = this.state.closest.x - document.getElementById(styles.date).offsetWidth / 2 + 'px';
           }
         })
     })
@@ -78,13 +79,13 @@ class App extends Component {
   }
 
   // fetches company price records and formats them into graph coordinates with prices attached, while keeping track of max and min vals
-  // in order to properly format the graph
-  getGraphData(timeframe) {
+  // in order to properly format the graph later
+  getGraphData() {
     const tempArr = []
     let x = 0;
     let min = null;
     let max = null;
-    $.get(`http://127.0.0.1:3000/prices/${this.state.currentCompany}/monthly`, (results) => {
+    $.get(`http://ec2-34-216-236-227.us-west-2.compute.amazonaws.com:3001/prices/${this.props.id}/`, (results) => {
       this.setState({closing: this.formatPrice(results[0].price)})
       results.forEach((datapoint) => {
         if(!max || datapoint.price > max) {
@@ -105,8 +106,8 @@ class App extends Component {
   }
 
   //gets a comany's info and sets it to the currentCompany state
-  getCompanyData(company) {
-    $.get(`http://127.0.0.1:3000/companies/company?company=${company}`, (results) => {
+  getCompanyData() {
+    $.get(`http://ec2-34-216-236-227.us-west-2.compute.amazonaws.com:3001/companies/id?id=${this.props.id}`, (results) => {
       this.setState({currentCompany: results[0]},() => {
         this.setState({currentPrice: this.formatPrice(this.state.currentCompany.last_closing_price),
         });
@@ -115,26 +116,30 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.getGraphData('monthly');
-    this.getCompanyData('animi');
+    this.getGraphData();
+    this.getCompanyData();
   }
 
   render() {
     return (
-      <div className = 'mainGraphContainer'>
+      <div className = {styles.mainGraphContainer}>
+        <div>
         <Price formatPrice = {this.formatPrice} currentPrice = {this.state.line ? this.state.closest.price : this.state.currentPrice} closingPrice = {this.state.closing} name={this.state.currentCompany ? this.state.currentCompany.name : null}/>
-        <div id ='date'>{this.state.line ? this.state.closest.date : null}</div>
-        <svg onMouseMove = {this.onMouseMove.bind(this)} onMouseEnter = {() => this.setState({ line: true })} onMouseLeave = { () => this.setState({ line: false })} width = {699} height = {260} className = 'graphSVG'>
+        </div>
+        <div>
+        <div id ={styles.date}>{this.state.line ? this.state.closest.date : null}</div>
+        <svg onMouseMove = {this.onMouseMove.bind(this)} onMouseEnter = {() => this.setState({ line: true })} onMouseLeave = { () => this.setState({ line: false })} width = {699} height = {260} className = {styles.graphSVG}>
             <g transform="translate(0,260)">
             <g transform="scale(1,-1)">
-              <Graph class = 'mainGraph' data = {this.state.graphData} path={this.state.path}/>
+              <Graph class = {styles.mainGraph} data = {this.state.graphData} path={this.state.path}/>
               <Line closest = {this.state.closest} show = {this.state.line} />
             </g>
             </g>
         </svg>
+        </div>
       </div>
     );
   }
 }
 
-export default App;
+export default MainGraph;

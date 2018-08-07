@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import reactDOM from 'react-dom';
 
-import App from './components/App';
+import MainGraph from './components/App.jsx';
 
-reactDOM.render(<App />, document.querySelector('#app'));
+//reactDOM.render(<MainGraph />, document.querySelector('#maingraph'));
+
+window.MainGraph = MainGraph;
+export default MainGraph;
